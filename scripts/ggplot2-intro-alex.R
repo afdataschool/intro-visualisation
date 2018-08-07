@@ -100,3 +100,71 @@ ggplot(data = gapminder,
            group = country)) +
   geom_line(aes(colour = continent)) +
   geom_point(size = 0.01)
+
+ggplot(data = gapminder, 
+       aes(x = gdpPercap, y = lifeExp,
+           colour = continent)) +
+  geom_point() +
+  scale_x_log10()
+
+ggplot(data = gapminder, 
+       aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  scale_x_log10() +
+  geom_smooth(method = "lm", size = 5)
+
+ggplot(data = gapminder, 
+       aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(colour = "red", size = 3) +
+  scale_x_log10() +
+  geom_smooth(method = "lm", size = 5)
+
+ggplot(data = gapminder, 
+       aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(colour = "red"), size = 3) +
+  scale_x_log10() +
+  geom_smooth(method = "lm", size = 5)
+
+ggplot(data = gapminder, 
+       aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(size = 1) +
+  scale_x_log10() +
+  geom_smooth(aes(colour = continent), method = "lm", size = 1)
+
+ggplot(data = gapminder,
+       aes(x = year, y = lifeExp, 
+           colour = continent)) +
+  geom_line() +
+  facet_wrap(~ country)
+
+#Subset the data to only have three countries
+#Make a faceted plot
+
+gapminder_selection <- gapminder %>% 
+  filter(country %in% c("Chile", "Australia", "Norway"))
+
+ggplot(data = gapminder_selection,
+       aes(x = year, y = lifeExp, 
+           colour = continent)) +
+  geom_line() +
+  facet_wrap(~ country)
+
+gapminder %>% 
+  filter(country %in% c("Chile", "Australia", "Norway")) %>% 
+  ggplot(aes(x = year, y = lifeExp, 
+           colour = continent)) +
+  geom_line() +
+  facet_wrap(~ country) +
+  labs(
+    x = "Year",
+    y = "Life Expectancy",
+    title = "Figure 1",
+    colour = "Continent"
+  ) +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle = 90),
+    panel.background = element_rect(fill = "white",
+                                    colour = "black")
+    )
+
